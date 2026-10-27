@@ -1,6 +1,6 @@
 # Connect keviero.com
 
-First verify that the default GitHub Pages URL works: https://mac5004.github.io/keviero-website/ .
+First verify that the default GitHub Pages URL works: https://mac5004.github.io/Keviero-Website/ .
 
 1. In GitHub repository Settings > Pages, enter keviero.com under Custom domain and save. Do this before changing DNS.
 2. At the domain DNS provider, set four A records for @:
