@@ -1,0 +1,55 @@
+name: Website QA
+on:
+  pull_request:
+    paths:
+      - '**/*.html'
+      - '**/*.css'
+      - '.github/workflows/site-qa.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate static pages, links, and assets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          from urllib.parse import urlsplit, unquote
+          import sys
+          root=Path('.').resolve()
+          errors=[]
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.links=[]; self.headings=[]; self.viewport=False; self.title=False
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag in ('a','link','script','img') and (a.get('href') or a.get('src')):
+                      self.links.append(a.get('href') or a.get('src'))
+                  if tag=='h1': self.headings.append(tag)
+                  if tag=='meta' and a.get('name')=='viewport': self.viewport=True
+                  if tag=='title': self.title=True
+          pages=list(root.rglob('*.html'))
+          for page in pages:
+              if '.git' in page.parts: continue
+              p=Parser()
+              try: p.feed(page.read_text(encoding='utf-8'))
+              except Exception as exc: errors.append(f'{page}: parse error: {exc}'); continue
+              if len(p.headings)!=1: errors.append(f'{page}: expected one h1, found {len(p.headings)}')
+              if not p.viewport: errors.append(f'{page}: missing viewport')
+              if not p.title: errors.append(f'{page}: missing title')
+              for link in p.links:
+                  if link.startswith(('#','mailto:','tel:','data:','javascript:','https:','http:','//')): continue
+                  url=unquote(urlsplit(link).path)
+                  target=(page.parent/url).resolve()
+                  if not target.is_relative_to(root): errors.append(f'{page}: path escapes site: {link}'); continue
+                  if not (target.is_file() or (target.is_dir() and (target/'index.html').is_file())):
+                      errors.append(f'{page}: broken local link {link}')
+          print(f'Checked {len(pages)} HTML pages')
+          if errors:
+              print('\n'.join(errors)); sys.exit(1)
+          print('PASS: headings, viewport, titles, and internal links')
+          PY
