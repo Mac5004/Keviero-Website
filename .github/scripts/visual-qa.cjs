@@ -4,7 +4,7 @@ const path = require('path');
 (async () => {
   fs.mkdirSync('visual-qa', { recursive: true });
   const browser = await chromium.launch({ headless: true });
-  const pages = ['/', '/apps/', '/remindq/', '/calcstash/', '/ezalbum/', '/support/', '/remindq/support/', '/remindq/privacy/'];
+  const pages = ['/', '/apps/', '/remindq/', '/calcstash/', '/ezalbum/', '/support/', '/remindq/support/', '/remindq/privacy/', '/calcstash/support/', '/calcstash/privacy/', '/ezalbum/support/', '/ezalbum/privacy/'];
   const devices = [
     { name: 'iphone', viewport: { width: 390, height: 844 }, isMobile: true, deviceScaleFactor: 1 },
     { name: 'desktop', viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 }
