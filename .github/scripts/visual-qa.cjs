@@ -25,7 +25,7 @@ const path = require('path');
         body: document.body.getBoundingClientRect().width,
         missingAlt: [...document.querySelectorAll('img')].filter(img => !img.hasAttribute('alt')).length,
         brokenImages: [...document.images].filter(img => !img.complete || img.naturalWidth === 0).map(img => img.getAttribute('src')),
-        emptyLinks: [...document.querySelectorAll('a')].filter(a => !((a.innerText || '').trim() || a.getAttribute('aria-label') || a.querySelector('img[alt]'))).length,
+        emptyLinks: [...document.querySelectorAll('a')].filter(a => !((a.textContent || '').trim() || a.getAttribute('aria-label') || a.querySelector('img[alt]'))).map(a => a.outerHTML.slice(0,180)),
         emptyButtons: [...document.querySelectorAll('button')].filter(b => !((b.innerText || '').trim() || b.getAttribute('aria-label'))).length
       }));
       const slug = route === '/' ? 'home' : route.replace(/^\/|\/$/g, '').replaceAll('/', '-');
@@ -37,7 +37,7 @@ const path = require('path');
       if (!metrics.title) reasons.push('missing title');
       if (metrics.missingAlt) reasons.push('images without alt: ' + metrics.missingAlt);
       if (metrics.brokenImages.length) reasons.push('broken images: ' + metrics.brokenImages.join(', '));
-      if (metrics.emptyLinks) reasons.push('unlabeled links: ' + metrics.emptyLinks);
+      if (metrics.emptyLinks.length) reasons.push('unlabeled links: ' + metrics.emptyLinks.join(' | '));
       if (metrics.emptyButtons) reasons.push('unlabeled buttons: ' + metrics.emptyButtons);
       if (errors.length) reasons.push('page errors: ' + errors.join(', '));
       console.log(device.name, route, reasons.length ? 'FAIL: ' + reasons.join('; ') : 'PASS');
