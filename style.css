@@ -3,3 +3,6 @@
 
 /* App collection: reuse the existing showcase at every breakpoint. */
 .app-nav{display:flex;flex-wrap:wrap;gap:12px 28px;margin:0 0 28px;font-size:13px}.app-nav a{border-bottom:1px solid var(--line);padding:8px 0}.app-nav a:hover{color:#0065b3}.development+.development{margin-top:28px}.dev-copy p.app-tagline{color:var(--ink);font-size:17px;line-height:1.5}
+
+/* Accessible app resources and footer navigation */
+.app-resources{display:flex;flex-wrap:wrap;gap:10px 18px;margin:18px 0 0!important;max-width:none!important}.app-resources a{display:inline-block;color:#0065b3;text-decoration:underline;text-underline-offset:3px;font-size:13px}.footer-links{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:12px}.footer-links a{color:#24495e!important;text-decoration:underline;text-underline-offset:3px}@media(max-width:620px){header nav{gap:10px;font-size:11px}header nav a:last-child{display:inline}footer .footer-links{width:100%;gap:14px}footer .footer-links a{font-size:12px}}
