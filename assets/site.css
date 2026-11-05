@@ -10,3 +10,11 @@
 /* Keep editorial headlines and mockups legible at narrow phone widths. */
 .editorial h2{color:#fff;overflow-wrap:normal}.editorial .visual{isolation:isolate}.editorial .floating{line-height:1.4}
 @media(max-width:420px){.editorial{padding:22px 17px}.editorial h2{font-size:clamp(29px,9vw,36px)}.editorial .phone{width:min(78%,245px)}.editorial .floating{max-width:125px;font-size:11px;padding:10px}.editorial .floating strong{font-size:12px}.editorial .phone-screen{min-height:340px}.editorial .calc-display{font-size:48px}}
+
+/* Keviero light editorial system: product accents remain within app illustrations. */
+:root{color-scheme:light;--bg:#fbfcfd;--panel:#ffffff;--ink:#081d2c;--muted:#536677;--accent:#006ba6}
+.site-header,.site-footer{border-color:#dce5ec}.tile{border-color:#dbe5ed;box-shadow:0 8px 28px #12344a09}.tile:hover{border-color:#007db6;box-shadow:0 14px 32px #12344a15}.section,details{border-color:#dbe5ed}.button{background:#08253a;color:#fff}.crumbs a{color:#486073}
+.editorial.remindq{background:linear-gradient(135deg,#f7f3ff,#e9e2f8)}
+.editorial.calcstash{background:linear-gradient(135deg,#f2f7fd,#e1ebf8)}
+.editorial.ezalbum-editorial{background:linear-gradient(135deg,#f2f9f7,#e0eeeb)}
+.editorial .eyebrow{color:#476181}.editorial h2{color:#102739}.editorial .tagline{color:#42576a}.editorial .features li{color:#253b4d}.editorial .features li::before{color:#7953ac}.editorial.calcstash .features li::before{color:#176fb2}.editorial .status-note{color:#28455c;border-color:#bdcdd9;background:#ffffffa8}
